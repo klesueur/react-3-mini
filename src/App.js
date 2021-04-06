@@ -66,6 +66,11 @@ class App extends Component {
   updatePrice(priceChange, id) {
     // axios (PUT)
     // setState with response -> vehiclesToDisplay
+    axios.put(`https://${baseURL}/vehicles/${id}/${priceChange}`)
+      .then(response => {
+        this.setState({ vehiclesToDisplay: response.data.vehicles })
+        toast.success(`You have successfully updated the price.`)
+      }).catch(error => toast.error(`Unable to update price.`))
   }
 
   addCar() {
@@ -108,6 +113,7 @@ class App extends Component {
     // DO NOT EDIT CODE ABOVE
     
     render() {
+      console.log('kara', this.state.vehiclesToDisplay)
     const vehicles = this.state.vehiclesToDisplay.map((v) => {
       return (
         <div key={v.id}>
