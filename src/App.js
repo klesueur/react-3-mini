@@ -74,8 +74,23 @@ class App extends Component {
   }
 
   addCar() {
+    let newCar = {
+      make: this.make.value,
+      model: this.model.value,
+      color: this.color.value,
+      year: this.year.value,
+      price: this.price.value
+    }
     // axios (POST)
     // setState with response -> vehiclesToDisplay
+    axios.post(`https://${baseURL}/vehicles`, newCar)
+      .then(response => {
+        this.setState({ vehiclesToDisplay: response.data.vehicles })
+        toast.success(`Success! Your vehicle has been added!`)
+      }).catch(error => {
+        console.log('kara addCar error', error)
+        toast.error(`Error adding vehicle at this time.`)
+      })
   }
 
   addBuyer() {
@@ -113,7 +128,7 @@ class App extends Component {
     // DO NOT EDIT CODE ABOVE
     
     render() {
-      console.log('kara', this.state.vehiclesToDisplay)
+      console.log('kara this.state.vehiclesToDisplay', this.state.vehiclesToDisplay)
     const vehicles = this.state.vehiclesToDisplay.map((v) => {
       return (
         <div key={v.id}>
