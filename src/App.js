@@ -42,6 +42,7 @@ class App extends Component {
   getVehicles() {
     // axios (GET)
     // setState with response -> vehiclesToDisplay
+
     axios.get(`https://${baseURL}/vehicles`)
       .then(response => {
         this.setState({ vehiclesToDisplay: response.data })
@@ -54,11 +55,20 @@ class App extends Component {
   getPotentialBuyers() {
     // axios (GET)
     // setState with response -> buyersToDisplay
+
+    axios.get(`https://${baseURL}/buyers`)
+      .then(response => {
+        this.setState({ buyersToDisplay: response.data })
+        toast.success('Success! Please view potential buyers below.')
+      }).catch(error => {
+        toast.error('Cannot retrieve buyer information. Please try again later.')
+      })
   }
 
   sellCar(id) {
     // axios (DELETE)
     // setState with response -> vehiclesToDisplay
+
     axios.delete(`https://${baseURL}/vehicles/${id}`)
       .then(response => {
         this.setState({ vehiclesToDisplay: response.data.vehicles })
@@ -82,6 +92,7 @@ class App extends Component {
   updatePrice(priceChange, id) {
     // axios (PUT)
     // setState with response -> vehiclesToDisplay
+
     axios.put(`https://${baseURL}/vehicles/${id}/${priceChange}`)
       .then(response => {
         this.setState({ vehiclesToDisplay: response.data.vehicles })
@@ -100,6 +111,7 @@ class App extends Component {
 
     // axios (POST)
     // setState with response -> vehiclesToDisplay
+
     axios.post(`https://${baseURL}/vehicles`, newCar)
       .then(response => {
         this.setState({ vehiclesToDisplay: response.data.vehicles })
@@ -146,7 +158,7 @@ class App extends Component {
     // DO NOT EDIT CODE ABOVE
     
     render() {
-      console.log('kara this.state.vehiclesToDisplay', this.state.vehiclesToDisplay)
+      console.log('kara this.state.buyersToDisplay', this.state.buyersToDisplay)
     const vehicles = this.state.vehiclesToDisplay.map((v) => {
       return (
         <div key={v.id}>
