@@ -6,6 +6,9 @@ import './App.css'
 // Toast notification dependencies
 import { ToastContainer, toast } from 'react-toastify'
 
+// Base URL for Axios:
+const baseURL = `joes-autos.herokuapp.com/api`;
+
 class App extends Component {
   constructor(props) {
     super(props)
@@ -31,6 +34,13 @@ class App extends Component {
   getVehicles() {
     // axios (GET)
     // setState with response -> vehiclesToDisplay
+    axios.get(`https://${baseURL}/vehicles`)
+      .then(response => {
+        this.setState({ vehiclesToDisplay: response.data })
+        toast.success(`Retrieved all vehicles successfully!`)
+      }).catch(error => {
+        toast.error(`Error attempting to retrieve vehicles.`)
+      })
   }
 
   getPotentialBuyers() {
@@ -94,10 +104,10 @@ class App extends Component {
           this.setState({ buyersToDisplay: res.data.buyers })
         }
       })
-  }
-  // DO NOT EDIT CODE ABOVE
-
-  render() {
+    }
+    // DO NOT EDIT CODE ABOVE
+    
+    render() {
     const vehicles = this.state.vehiclesToDisplay.map((v) => {
       return (
         <div key={v.id}>
