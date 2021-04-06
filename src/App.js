@@ -31,14 +31,6 @@ class App extends Component {
     this.deleteBuyer = this.deleteBuyer.bind(this)
   }
 
-  resetInputs() {
-    this.make.value='', 
-    this.model.value='', 
-    this.year.value='', 
-    this.color.value='',
-    this.price.value=''
-  }
-
   getVehicles() {
     // axios (GET)
     // setState with response -> vehiclesToDisplay
@@ -116,7 +108,11 @@ class App extends Component {
       .then(response => {
         this.setState({ vehiclesToDisplay: response.data.vehicles })
         toast.success(`Success! Your vehicle has been added!`)
-        this.resetInputs()
+        this.make.value='', 
+        this.model.value='', 
+        this.year.value='', 
+        this.color.value='',
+        this.price.value=''
       }).catch(error => {
         console.log('kara addCar error', error)
         toast.error(`Error adding vehicle at this time.`)
@@ -124,8 +120,25 @@ class App extends Component {
   }
 
   addBuyer() {
+    let newBuyer = {
+      name: this.name.value,
+      phone: this.phone.value,
+      address: this.address.value
+    }
     //axios (POST)
     // setState with response -> buyersToDisplay
+
+    axios.post(`https://${baseURL}/buyers`, newBuyer)
+    .then(response => {
+      this.setState({ buyersToDisplay: response.data.buyers })
+      toast.success('New Buyer Added!')
+      this.name.value='', 
+      this.phone.value='', 
+      this.address.value=''
+    }).catch(error => {
+      toast.error(
+        'There seems to be a problem with adding new buyer. Please fill out the New Buyer form and submit again.'
+      )})
   }
 
   deleteBuyer(id) {
