@@ -44,15 +44,11 @@ class App extends Component {
   }
 
   filterByMake() {
-    let make = this.selectedMake.value
-
     // axios (GET)
     // setState with response -> vehiclesToDisplay
   }
 
   filterByColor() {
-    let color = this.selectedColor.value
-
     // axios (GET)
     // setState with response -> vehiclesToDisplay
   }
@@ -60,38 +56,11 @@ class App extends Component {
   updatePrice(priceChange, id) {
     // axios (PUT)
     // setState with response -> vehiclesToDisplay
-
-    axios.put(`${baseUrl}/vehicles/${id}/${priceChange}`).then((res) => {
-      this.setState({
-        vehiclesToDisplay: res.data.vehicles,
-      })
-      toast.success('Price changed')
-    })
-    .catch((err) => {
-      toast.error(err.message)
-    })
   }
 
   addCar() {
-    let newCar = {
-      make: this.make.value,
-      model: this.model.value,
-      color: this.color.value,
-      year: this.year.value,
-      price: this.price.value,
-    }
-
     // axios (POST)
     // setState with response -> vehiclesToDisplay
-    axios.post(`${baseUrl}/vehicles`, newCar).then((res) => {
-      this.setState({
-        vehiclesToDisplay: res.data.vehicles,
-      })
-      toast.success('Car Added')
-    }).catch((err) => {
-      toast.error(err.message)
-    })
-
   }
 
   addBuyer() {
