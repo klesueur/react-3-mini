@@ -144,6 +144,12 @@ class App extends Component {
   deleteBuyer(id) {
     // axios (DELETE)
     //setState with response -> buyersToDisplay
+
+    axios.delete(`https://${baseURL}/buyers/${id}`)
+      .then(response => {
+        this.setState({ buyersToDisplay: response.data.buyers })
+        toast.success('Buyer successfully removed.')
+      }).catch(error => {toast.error('Unable to remove this buyer.')})
   }
 
   nameSearch() {
