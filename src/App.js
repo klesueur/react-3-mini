@@ -6,8 +6,6 @@ import './App.css'
 // Toast notification dependencies
 import { ToastContainer, toast } from 'react-toastify'
 
-const baseUrl = 'https://joes-autos.herokuapp.com/api'
-
 class App extends Component {
   constructor(props) {
     super(props)
@@ -33,15 +31,6 @@ class App extends Component {
   getVehicles() {
     // axios (GET)
     // setState with response -> vehiclesToDisplay
-    axios.get(`${baseUrl}/vehicles`).then((res) => {
-      this.setState({
-        vehiclesToDisplay: res.data,
-      })
-      .catch((err) => {
-        toast.error(err.message)
-      })
-      toast.success('Got the vehicles')
-    })
   }
 
   getPotentialBuyers() {
@@ -52,16 +41,6 @@ class App extends Component {
   sellCar(id) {
     // axios (DELETE)
     // setState with response -> vehiclesToDisplay
-
-    axios.delete(`${baseUrl}/vehicles/${id}`).then(res => {
-      this.setState({
-        vehiclesToDisplay: res.data.vehicles
-      })
-      toast.success("It's gone!")
-    })
-    .catch((err) => {
-      toast.error(err.message)
-    })
   }
 
   filterByMake() {
@@ -116,12 +95,6 @@ class App extends Component {
   }
 
   addBuyer() {
-    let newBuyer = {
-      name: this.name.value,
-      phone: this.phone.value,
-      address: this.address.value,
-    }
-
     //axios (POST)
     // setState with response -> buyersToDisplay
   }
@@ -132,19 +105,16 @@ class App extends Component {
   }
 
   nameSearch() {
-    let searchLetters = this.searchLetters.value
     // axios (GET)
     // setState with response -> buyersToDisplay
   }
 
   byYear() {
-    let year = this.searchYear.value
-
     // axios (GET)
     // setState with response -> vehiclesToDisplay
   }
 
-  // Do not edit the code below
+  // DO NOT EDIT CODE BELOW
   resetData(dataToReset) {
     axios
       .get('https://joes-autos.herokuapp.com/api/' + dataToReset + '/reset')
@@ -156,7 +126,7 @@ class App extends Component {
         }
       })
   }
-  // Do not edit the code above
+  // DO NOT EDIT CODE ABOVE
 
   render() {
     const vehicles = this.state.vehiclesToDisplay.map((v) => {
