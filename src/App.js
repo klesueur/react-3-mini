@@ -31,6 +31,14 @@ class App extends Component {
     this.deleteBuyer = this.deleteBuyer.bind(this)
   }
 
+  resetInputs() {
+    this.make.value='', 
+    this.model.value='', 
+    this.year.value='', 
+    this.color.value='',
+    this.price.value=''
+  }
+
   getVehicles() {
     // axios (GET)
     // setState with response -> vehiclesToDisplay
@@ -51,6 +59,14 @@ class App extends Component {
   sellCar(id) {
     // axios (DELETE)
     // setState with response -> vehiclesToDisplay
+    axios.delete(`https://${baseURL}/vehicles/${id}`)
+      .then(response => {
+        this.setState({ vehiclesToDisplay: response.data.vehicles })
+        toast.success(`Success!`)
+      }).catch(error => {
+        console.log('error on sellCar', error)
+        toast.error(`Error.`)
+      })
   }
 
   filterByMake() {
@@ -72,7 +88,7 @@ class App extends Component {
         toast.success(`You have successfully updated the price.`)
       }).catch(error => toast.error(`Unable to update price.`))
   }
-
+    
   addCar() {
     let newCar = {
       make: this.make.value,
@@ -81,12 +97,14 @@ class App extends Component {
       year: this.year.value,
       price: this.price.value
     }
+
     // axios (POST)
     // setState with response -> vehiclesToDisplay
     axios.post(`https://${baseURL}/vehicles`, newCar)
       .then(response => {
         this.setState({ vehiclesToDisplay: response.data.vehicles })
         toast.success(`Success! Your vehicle has been added!`)
+        this.resetInputs()
       }).catch(error => {
         console.log('kara addCar error', error)
         toast.error(`Error adding vehicle at this time.`)
