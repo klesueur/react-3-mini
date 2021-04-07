@@ -88,6 +88,15 @@ class App extends Component {
   filterByColor() {
     // axios (GET)
     // setState with response -> vehiclesToDisplay
+
+    axios.get(`https://${baseURL}/vehicles?color=${this.selectedColor.value}`)
+      .then(response => {
+        this.setState({ vehiclesToDisplay: response.data })
+        toast.success(`Vehicles By Selected Color Successful!`)
+      }).catch(error => {
+        console.log('filterByColor ERROR')
+        toast.error('Error filtering vehicles by color.')
+      })
   }
 
   updatePrice(priceChange, id) {
