@@ -74,6 +74,15 @@ class App extends Component {
   filterByMake() {
     // axios (GET)
     // setState with response -> vehiclesToDisplay
+
+    axios.get(`https://${baseURL}/vehicles?make=${this.selectedMake.value}`)
+      .then(response => {
+        this.setState({ vehiclesToDisplay: response.data })
+        toast.success(`Vehicles By Make.`)
+      }).catch(error => {
+        console.log('ERROR filterByMake', error)
+        toast.error('An error occurred when showing the selected make.')
+      })
   }
 
   filterByColor() {
@@ -155,6 +164,8 @@ class App extends Component {
   nameSearch() {
     // axios (GET)
     // setState with response -> buyersToDisplay
+
+
   }
 
   byYear() {
@@ -178,6 +189,8 @@ class App extends Component {
     
     render() {
       console.log('kara this.state.buyersToDisplay', this.state.buyersToDisplay)
+      console.log('kara this.state.vehiclesToDisplay', this.state.vehiclesToDisplay)
+
     const vehicles = this.state.vehiclesToDisplay.map((v) => {
       return (
         <div key={v.id}>
