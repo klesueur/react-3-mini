@@ -178,18 +178,20 @@ class App extends Component {
   }
 
   byYear() {
+    // could destructure number off this.state.vehiclesToDisplay
     // axios (GET)
     // setState with response -> vehiclesToDisplay
 
     axios.get(`https://${baseURL}/vehicles?year=${this.searchYear.value}`)
       .then(response => {
-        console.log('sorted byYear response.data', response.data)
-        console.log('this.state.vehiclesToDisplay', this.state.vehiclesToDisplay)
-        // if (this.vehiclesToDisplay.length() > 0) {
-        //   toast.success('Sorted by year successful!')
-        // } else {
-        //   toast.error('Search successful but 0 vehicles match the search year.')
-        // }
+        console.log(this.searchYear.value)
+        this.setState({ vehiclesToDisplay: response.data })
+
+        if (this.state.vehiclesToDisplay.length > 0) {
+          toast.success('Sorted by year successful!')
+        } else {
+          toast.error('Search successful but 0 vehicles match the search year.')
+        }
       }).catch(error => {
         console.log('sorted byYear ERROR', error)
         toast.error('Error sorting by Year,')
@@ -213,6 +215,8 @@ class App extends Component {
     render() {
       console.log('kara this.state.buyersToDisplay', this.state.buyersToDisplay)
       console.log('kara this.state.vehiclesToDisplay', this.state.vehiclesToDisplay)
+      console.log('length num', this.state.vehiclesToDisplay.length)
+
 
     const vehicles = this.state.vehiclesToDisplay.map((v) => {
       return (
