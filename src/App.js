@@ -180,6 +180,20 @@ class App extends Component {
   byYear() {
     // axios (GET)
     // setState with response -> vehiclesToDisplay
+
+    axios.get(`https://${baseURL}/vehicles?year=${this.searchYear.value}`)
+      .then(response => {
+        console.log('sorted byYear response.data', response.data)
+        console.log('this.state.vehiclesToDisplay', this.state.vehiclesToDisplay)
+        // if (this.vehiclesToDisplay.length() > 0) {
+        //   toast.success('Sorted by year successful!')
+        // } else {
+        //   toast.error('Search successful but 0 vehicles match the search year.')
+        // }
+      }).catch(error => {
+        console.log('sorted byYear ERROR', error)
+        toast.error('Error sorting by Year,')
+      })
   }
 
   // DO NOT EDIT CODE BELOW
